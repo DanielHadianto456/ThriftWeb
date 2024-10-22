@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\kategoriController;
 use App\Http\Controllers\pakaianController;
+use App\Http\Controllers\transaksiController;
+use App\Http\Controllers\pembelianDetailController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -28,6 +30,21 @@ Route::middleware('auth:user_model')->group(function(){
         Route::delete('admin/pakaian/delete/{id}', 'deletePakaian');
         Route::post('admin/pakaian/add-stock/{id}', 'addStock'); // Add this line
     });
+
+    Route::controller(transaksiController::class)->group(function(){
+        Route::post('user/pembelian/add', 'addPembelian2');
+        Route::get('admin/pembelian', 'getAllPembelian');
+        Route::patch('admin/pembelian/edit/{id}', 'editPakaian');
+        Route::delete('admin/pembelian/delete/{id}', 'deletePakaian');
+        Route::post('admin/pembelian/add-stock/{id}', 'addStock');
+        Route::patch('admin/pembelian/confirm/{id}', 'updateStatus');
+        Route::delete('admin/pembelian/delete/{id}', 'deleteTransaction');
+    });
+
+    Route::controller(pembelianDetailController::class)->group(function(){
+        Route::post('user/pembelian/detail/{pembelian_id}',  'addPembelianDetail');
+    });
+    
     
 });
 Route::controller( AuthController::class)->group(function(){
