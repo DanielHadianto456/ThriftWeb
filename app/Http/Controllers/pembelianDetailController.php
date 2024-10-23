@@ -84,10 +84,10 @@ class pembelianDetailController extends Controller
                 return response()->json($validator->errors()->toJson(), 400);
             }
 
-            // Get the existing pembelian
+            // Checks if currently logged user is the owner
             $pembelian = pembelianModel::find($pembelian_id);
-            if (!$pembelian) {
-                return response()->json(['status' => false, 'message' => 'Pembelian not found'], 404);
+            if ($pembelian->user_id !== $user->user_id) {
+                return response()->json(['status' => false, 'message' => 'Unauthorized'], 403);
             }
 
             $totalPrice = 0;
