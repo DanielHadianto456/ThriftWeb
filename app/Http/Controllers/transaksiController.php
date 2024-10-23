@@ -35,14 +35,23 @@ class transaksiController extends Controller
         }
 
     }
-
     public function addPembelian2(Request $req)
     {
         // Get the authenticated user
         $user = Auth::user();
 
-        // Check if the user is an admin
-        if ($user->user_level === 'ADMIN' || $user->user_level === 'PENGGUNA') {
+        //Gets transaction data
+        $data = pembelianModel::where('user_id', $user->user_id)
+        ->orderBy('pembelian_tanggal', 'desc')
+        ->first();
+
+        // Check if the user is pengguna
+        if ($user->user_level === 'PENGGUNA') {
+
+            // Check if the transaction is already paid
+            if($data->status === 'BELUM_LUNAS'){
+                return response()->json(['status' => false, 'message' => 'Last transaction has not been paid'], 400);
+            }
 
             // Validation rules
             $validator = Validator::make($req->all(), [
