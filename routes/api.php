@@ -32,7 +32,12 @@ Route::middleware('auth:user_model')->group(function(){
     });
 
     Route::controller(transaksiController::class)->group(function(){
+        //User
         Route::post('user/pembelian/add', 'addPembelian2');
+        Route::get('user/pembelian/detail/{id}', 'getPembelianId');
+        Route::get('user/pembelian', 'getAllPembelian');
+        //Admin
+        Route::get('admin/pembelian/detail/{id}', 'getPembelianId');
         Route::get('admin/pembelian', 'getAllPembelian');
         Route::patch('admin/pembelian/edit/{id}', 'editPakaian');
         Route::delete('admin/pembelian/delete/{id}', 'deletePakaian');

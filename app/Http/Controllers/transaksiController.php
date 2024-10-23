@@ -35,6 +35,47 @@ class transaksiController extends Controller
         }
 
     }
+
+    public function getPembelianId($id){
+
+        //Gets currently logged user
+        $user = Auth::user();
+        
+        //Checks if user is eithr admin or pengguna
+        if($user->user_level === 'ADMIN' || $user->user_level === 'PENGGUNA'){
+            
+            $data = pembelianModel::with([
+                'user',
+                'metodePembayaran',
+                'detailPembelian',
+                'detailPembelian.pakaian'
+            ])->find($id);
+            
+            //Checks if the user is authorized within the selected data entry
+            if($data->user_id !== $user->user_id || $user->user_level === 'ADMIN'){
+
+                return response()->json(['status' => false, 'message' => 'Unauthorized'], 403);
+
+            }
+
+            if($data){
+
+                return response()->json(['status' => true, 'message' => 'Data fetched', 'data' => $data], 200);
+           
+            } else {
+
+                return response()->json(['status' => false, 'message' => 'Data not found'], 404);
+            
+            }
+
+        } else {
+
+            return response()->json(['status' => false, 'message' => 'Unauthorized'], 403);
+
+        }
+
+    }
+
     public function addPembelian2(Request $req)
     {
         // Get the authenticated user
