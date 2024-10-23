@@ -18,7 +18,7 @@ class kategoriController extends Controller
         $user = Auth::user();
 
         //Check if user is an admin
-        if ($user->user_level === 'ADMIN') {
+        if ($user->user_level === 'ADMIN' || $user->user_level === 'PENGGUNA') {
 
             //Get all data from kategori_pakaian table
             $data = kategoriModel::all();

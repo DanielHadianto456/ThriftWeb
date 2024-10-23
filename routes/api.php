@@ -15,7 +15,9 @@ Route::get('/user', function (Request $request) {
 Route::middleware('auth:user_model')->group(function(){
 
     Route::controller(kategoriController::class)->group(function(){
-
+        //user
+        Route::get('user/kategori', 'getAll');
+        //admin
         Route::get('admin/kategori', 'getAll');
         Route::post('admin/kategori/add', 'addCategory');
         Route::patch('admin/kategori/edit/{id}', 'editCategory');
@@ -24,6 +26,9 @@ Route::middleware('auth:user_model')->group(function(){
     });
 
     Route::controller(pakaianController::class)->group(function(){
+        //user
+        Route::get('user/pakaian', 'getAll');
+        //admin
         Route::get('admin/pakaian', 'getAll');
         Route::post('admin/pakaian/add', 'addPakaian');
         Route::patch('admin/pakaian/edit/{id}', 'editPakaian');
@@ -32,7 +37,12 @@ Route::middleware('auth:user_model')->group(function(){
     });
 
     Route::controller(transaksiController::class)->group(function(){
+        //User
         Route::post('user/pembelian/add', 'addPembelian2');
+        Route::get('user/pembelian/detail/{id}', 'getPembelianId');
+        Route::get('user/pembelian', 'getAllPembelian');
+        //Admin
+        Route::get('admin/pembelian/detail/{id}', 'getPembelianId');
         Route::get('admin/pembelian', 'getAllPembelian');
         Route::patch('admin/pembelian/edit/{id}', 'editPakaian');
         Route::delete('admin/pembelian/delete/{id}', 'deletePakaian');
