@@ -7,6 +7,8 @@ use App\Http\Controllers\kategoriController;
 use App\Http\Controllers\pakaianController;
 use App\Http\Controllers\transaksiController;
 use App\Http\Controllers\pembelianDetailController;
+use App\Http\Controllers\userController;
+
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -53,6 +55,12 @@ Route::middleware('auth:user_model')->group(function(){
 
     Route::controller(pembelianDetailController::class)->group(function(){
         Route::post('user/pembelian/detail/{pembelian_id}',  'addPembelianDetail');
+    });
+
+    Route::controller(userController::class)->group(function(){
+        Route::post('/user/update-profile',  'updateProfile');
+        Route::post('/user/reset-password', 'resetPassword');
+        Route::get('/user/profile',  'getProfile');
     });
     
     
