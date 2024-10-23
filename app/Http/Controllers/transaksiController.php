@@ -19,7 +19,7 @@ class transaksiController extends Controller
 
         $user = Auth::user();
 
-        if ($user->user_level === 'ADMIN') {
+        if ($user->user_level === 'ADMIN' || $user->user_level === 'PENGGUNA') {
 
             $data = pembelianModel::with([
                 'user',
