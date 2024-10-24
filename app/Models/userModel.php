@@ -40,6 +40,7 @@ class userModel extends Authenticatable implements JWTSubject
     {
         return [
             'role' => $this->user_level,
+            'username' => $this->user_username,
         ];
     }
 }
