@@ -1,0 +1,3 @@
+<template>
+    check clothing
+</template>
