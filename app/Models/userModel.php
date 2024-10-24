@@ -38,6 +38,8 @@ class userModel extends Authenticatable implements JWTSubject
 
     public function getJWTCustomClaims()
     {
-        return [];
+        return [
+            'role' => $this->user_level,
+        ];
     }
 }
