@@ -7,6 +7,7 @@
     <div class="items" v-if="username">
       <span class="item">Welcome, {{ username }}</span>
       <router-link class="item" to="/">Home</router-link>
+      <router-link class="item" to="/user/HistoryPage">History</router-link>
       <router-link v-if="role === 'ADMIN'" class="item" to="/admin">Admin Panel</router-link>
       <span @click="logout" class="item">Logout</span>
     </div>
@@ -65,6 +66,7 @@ export default {
   padding: 1rem;
   background-color: #333;
   color: white;
+  font-family: 'Poppins', sans-serif; /* Use Poppins font */
 }
 
 .hero h1 {
@@ -79,9 +81,22 @@ export default {
 .item {
   margin-left: 1rem;
   cursor: pointer;
+  color: white; /* Ensure text color is white */
+  text-decoration: none; /* Remove underline */
 }
 
 .item:hover {
   text-decoration: underline;
+}
+
+.item:active,
+.item:focus,
+.item:visited {
+  color: white; /* Ensure text color remains white */
+  text-decoration: none; /* Remove underline */
+}
+
+.router-link-active {
+  color: white; /* Ensure active link color remains white */
 }
 </style>
