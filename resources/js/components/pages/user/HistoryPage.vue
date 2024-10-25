@@ -17,6 +17,7 @@
               <td>Metode Pembayaran</td>
               <td>Total Harga</td>
               <td>Status Transaksi</td>
+              <td>Actions</td>
             </tr>
           </thead>
           <tbody>
@@ -24,32 +25,40 @@
               <td>{{ transaction.pembelian_tanggal }}</td>
               <td>{{ transaction.user.user_fullname }}</td>
               <td>{{ transaction.metode_pembayaran.metode_pembayaran_jenis }}</td>
-              <td>{{ transaction.pembelian_total_harga.toLocaleString("id-ID") }}</td>
+              <td>Rp. {{ transaction.pembelian_total_harga.toLocaleString("id-ID") }}</td>
               <td :style="{ color: transaction.status === 'BELUM_LUNAS' ? '#BE0000' : 'green', fontWeight: 'bold' }">
                 {{ transaction.status }}
+              </td>
+              <td>
+                <button @click="openModal(transaction.pembelian_id)">View Details</button>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
+    <TransactionDetailModal :isOpen="isModalOpen" :transactionId="selectedTransactionId" @close="closeModal" />
   </div>
 </template>
 
 <script>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { getAllTransaction } from "@/stores/transactionStore";
 import { useUserStore } from "@/stores/userStore";
 import Header from "../../Header.vue";
+import TransactionDetailModal from "../../TransactionDetailModal.vue";
 
 export default {
   name: "HistoryPage",
   components: {
     Header,
+    TransactionDetailModal,
   },
   data() {
     return {
       transactions: [],
+      isModalOpen: false,
+      selectedTransactionId: null,
     };
   },
   computed: {
@@ -68,6 +77,14 @@ export default {
       } catch (error) {
         console.error("Failed to fetch transactions:", error);
       }
+    },
+    openModal(transactionId) {
+      this.selectedTransactionId = transactionId;
+      this.isModalOpen = true;
+    },
+    closeModal() {
+      this.isModalOpen = false;
+      this.selectedTransactionId = null;
     },
   },
   mounted() {
