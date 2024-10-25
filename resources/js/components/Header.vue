@@ -1,7 +1,7 @@
 <template>
   <div class="nav">
     <div class="hero">
-      <h1>GrimmCafe</h1>
+      <h1>Thrift</h1>
     </div>
     <div></div>
     <div class="items" v-if="username">

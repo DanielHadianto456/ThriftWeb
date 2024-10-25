@@ -89,8 +89,8 @@ class transaksiController extends Controller
         // Check if the user is pengguna
         if ($user->user_level === 'PENGGUNA') {
 
-            // Check if the transaction is already paid
-            if($data->status === 'BELUM_LUNAS'){
+            // Allow transaction if there's no previous data or if the last transaction is not BELUM_LUNAS
+            if($data && $data->status === 'BELUM_LUNAS'){
                 return response()->json(['status' => false, 'message' => 'Last transaction has not been paid'], 400);
             }
 
@@ -187,7 +187,7 @@ class transaksiController extends Controller
         $user = Auth::user();
         $data = pembelianModel::find($id);
 
-        if ($user->user_level === 'ADMIN' && $data->status === 'BELUM_LUNAS') {
+        if ($user->user_level === 'PENGGUNA' && $data->status === 'BELUM_LUNAS') {
 
             $data->status = 'LUNAS';
             $data->save();
