@@ -42,12 +42,19 @@ class pakaianController extends Controller
                 'pakaian_nama' => 'required|string|max:50',
                 'pakaian_harga' => 'required|string|max:50',
                 'pakaian_stok' => 'required|string|max:100',
-                'pakaian_gambar_url' => 'required|string|max:50',
+                'pakaian_gambar_url' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
 
             // If validation fails
             if ($validator->fails()) {
                 return response()->json($validator->errors()->toJson(), 400);
+            }
+
+             // Handle image upload
+             if ($req->hasFile('pakaian_gambar_url')) {
+                $image = $req->file('pakaian_gambar_url');
+                $imageName = $image->getClientOriginalName();
+                $imagePath = $image->storeAs('images/clothing', $imageName, 'public');
             }
 
             // Save data
@@ -56,7 +63,7 @@ class pakaianController extends Controller
                 'pakaian_nama' => $req->get('pakaian_nama'),
                 'pakaian_harga' => $req->get('pakaian_harga'),
                 'pakaian_stok' => $req->get('pakaian_stok'),
-                'pakaian_gambar_url' => $req->get('pakaian_gambar_url'),
+                'pakaian_gambar_url' => $imagePath,
             ]);
 
             // If data is saved

@@ -43,13 +43,13 @@ Route::middleware('auth:user_model')->group(function(){
         Route::post('user/pembelian/add', 'addPembelian2');
         Route::get('user/pembelian/detail/{id}', 'getPembelianId');
         Route::get('user/pembelian', 'getAllPembelian');
+        Route::patch('user/pembelian/confirm/{id}', 'updateStatus');
         //Admin
         Route::get('admin/pembelian/detail/{id}', 'getPembelianId');
         Route::get('admin/pembelian', 'getAllPembelian');
         Route::patch('admin/pembelian/edit/{id}', 'editPakaian');
         Route::delete('admin/pembelian/delete/{id}', 'deletePakaian');
         Route::post('admin/pembelian/add-stock/{id}', 'addStock');
-        Route::patch('admin/pembelian/confirm/{id}', 'updateStatus');
         Route::delete('admin/pembelian/delete/{id}', 'deleteTransaction');
     });
 
