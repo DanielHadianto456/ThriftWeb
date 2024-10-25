@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import {jwtDecode}  from 'jwt-decode';
 
 import Home from '../components/pages/HomePage.vue';
-import CheckClothing from '../components/pages/user/CheckClothing.vue';
+import HistoryPage from '../components/pages/user/HistoryPage.vue';
 import AddClothing from '../components/pages/admin/AddClothing.vue';
 import NotFound from '../components/pages/NotFound.vue';
 import LoginPage from '../components/pages/LoginPage.vue';
@@ -14,9 +14,9 @@ const routes = [
         name: 'Home', 
     },
     {
-        path: '/user/CheckClothing',
-        component: CheckClothing,
-        name: 'CheckClothing', 
+        path: '/user/HistoryPage',
+        component: HistoryPage,
+        name: 'HistoryPage', 
         meta: { requiresRole: ['PENGGUNA'] }
     },
     {
