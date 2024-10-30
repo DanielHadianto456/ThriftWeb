@@ -90,12 +90,18 @@ class pakaianController extends Controller
                 'pakaian_nama' => 'nullable|string|max:50',
                 'pakaian_harga' => 'nullable|string|max:50',
                 'pakaian_stok' => 'nullable|string|max:100',
-                'pakaian_gambar_url' => 'nullable|string|max:50',
+                'pakaian_gambar_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
 
             // If validation fails
             if ($validator->fails()) {
                 return response()->json($validator->errors()->toJson(), 400);
+            }
+
+            if ($req->hasFile('pakaian_gambar_url')) {
+                $image = $req->file('pakaian_gambar_url');
+                $imageName = $image->getClientOriginalName();
+                $imagePath = $image->storeAs('images/clothing', $imageName, 'public');
             }
 
             // Update data
@@ -104,7 +110,7 @@ class pakaianController extends Controller
                 'pakaian_nama' => $req->get('pakaian_nama') ?? pakaianModel::select('pakaian_nama')->where('pakaian_id', $id)->first()->pakaian_nama,
                 'pakaian_harga' => $req->get('pakaian_harga') ?? pakaianModel::select('pakaian_harga')->where('pakaian_id', $id)->first()->pakaian_harga,
                 'pakaian_stok' => $req->get('pakaian_stok') ?? pakaianModel::select('pakaian_stok')->where('pakaian_id', $id)->first()->pakaian_stok,
-                'pakaian_gambar_url' => $req->get('pakaian_gambar_url') ?? pakaianModel::select('pakaian_gambar_url')->where('pakaian_id', $id)->first()->pakaian_gambar_url,
+                'pakaian_gambar_url' =>  $imagePath ?? pakaianModel::select('pakaian_gambar_url')->where('pakaian_id', $id)->first()->pakaian_gambar_url,
             ];
 
             $save = pakaianModel::where('pakaian_id', $id)->update($update);

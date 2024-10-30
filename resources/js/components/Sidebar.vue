@@ -4,9 +4,11 @@
       <h1>Thrift Admin</h1>
     </div>
     <div class="sidebar-items">
-      <router-link class="sidebar-item" to="/admin">Admin Dashboard</router-link>
-      <router-link class="sidebar-item" to="/admin/add-clothing">Add Clothing</router-link>
-      <router-link class="sidebar-item" to="/admin/add-category">Add Category</router-link>
+      <router-link class="sidebar-item" to="/admin">Dashboard</router-link>
+      <router-link class="sidebar-item" to="/admin/all-categories">Categories</router-link>
+      <!-- <router-link class="sidebar-item" to="/admin/add-category">Add Category</router-link> -->
+      <router-link class="sidebar-item" to="/admin/all-transactions">Transactions</router-link>
+      <router-link class="sidebar-item" to="/admin/all-clothing">Clothing</router-link>
       <span @click="logout" class="sidebar-item">Logout</span>
     </div>
   </div>

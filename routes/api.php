@@ -34,7 +34,7 @@ Route::middleware('auth:user_model')->group(function(){
         //admin
         Route::get('admin/pakaian', 'getAll');
         Route::post('admin/pakaian/add', 'addPakaian');
-        Route::patch('admin/pakaian/edit/{id}', 'editPakaian');
+        Route::post('admin/pakaian/edit/{id}', 'editPakaian');
         Route::delete('admin/pakaian/delete/{id}', 'deletePakaian');
         Route::post('admin/pakaian/add-stock/{id}', 'addStock'); // Add this line
     });
@@ -56,7 +56,7 @@ Route::middleware('auth:user_model')->group(function(){
     });
 
     Route::controller(pembelianDetailController::class)->group(function(){
-        Route::post('user/pembelian/detail/{pembelian_id}',  'addPembelianDetail');
+        Route::post('user/pembelian/detail/add/{pembelian_id}',  'addPembelianDetail');
     });
 
     Route::controller(userController::class)->group(function(){

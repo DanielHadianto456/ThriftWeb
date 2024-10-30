@@ -5,9 +5,12 @@ import Home from '../components/pages/HomePage.vue';
 import HistoryPage from '../components/pages/user/HistoryPage.vue';
 import AddClothing from '../components/pages/admin/AddClothing.vue';
 import AddCategory from '../components/pages/admin/AddCategory.vue';
+import AllCategories from '../components/pages/admin/AllCategories.vue';
 import NotFound from '../components/pages/NotFound.vue';
 import LoginPage from '../components/pages/LoginPage.vue';
 import AdminDashboard from '../components/pages/admin/AdminDashboard.vue';
+import AllTransactions from '../components/pages/admin/AllTransactions.vue';
+import AllClothing from '../components/pages/admin/AllClothing.vue';
 
 const routes = [
   {
@@ -28,9 +31,27 @@ const routes = [
     meta: { requiresRole: ['ADMIN'] },
   },
   {
+    path: '/admin/all-clothing',
+    component: AllClothing,
+    name: 'AllClothing',
+    meta: { requiresRole: ['ADMIN'] },
+  },
+  {
     path: '/admin/add-category',
     component: AddCategory,
     name: 'AddCategory',
+    meta: { requiresRole: ['ADMIN'] },
+  },
+  {
+    path: '/admin/all-categories',
+    component: AllCategories,
+    name: 'AllCategories',
+    meta: { requiresRole: ['ADMIN'] },
+  },
+  {
+    path: '/admin/all-transactions',
+    component: AllTransactions,
+    name: 'AllTransactions',
     meta: { requiresRole: ['ADMIN'] },
   },
   {

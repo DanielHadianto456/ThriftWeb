@@ -41,3 +41,27 @@ export const getTransactionId = defineStore("getTransactionIdStore", {
         },
     },
 });
+
+export const useTransactionStore = defineStore("transactionStore", {
+    actions: {
+      async getAllTransactions() {
+        try {
+          const token = localStorage.getItem("token");
+          const response = await fetch("/api/admin/pembelian", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const data = await response.json();
+          if (data.status) {
+            return data.data;
+          } else {
+            throw new Error(data.message);
+          }
+        } catch (error) {
+          console.error("Failed to fetch transactions:", error);
+          throw error;
+        }
+      },
+    },
+  });
