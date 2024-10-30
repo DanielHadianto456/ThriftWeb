@@ -19,7 +19,7 @@ class transaksiController extends Controller
 
         $user = Auth::user();
 
-        if ($user->user_level === 'ADMIN' || $user->user_level === 'PENGGUNA') {
+        if ($user->user_level === 'ADMIN') {
 
             $data = pembelianModel::with([
                 'user',
@@ -36,36 +36,59 @@ class transaksiController extends Controller
 
     }
 
-    public function getPembelianId($id){
+    public function getPembelianUser()
+    {
+
+        $user = Auth::user();
+
+        if ($user->user_level === 'PENGGUNA') {
+
+            $data = pembelianModel::with([
+                'user',
+                // 'pembelian',
+                'metodePembayaran'
+            ])->where('user_id', $user->user_id)->get();
+            return response()->json(['status' => true, 'message' => 'Data fetched', 'data' => $data], 200);
+
+        } else {
+
+            return response()->json(['status' => false, 'message' => 'Unauthorized'], 403);
+
+        }
+
+    }
+
+    public function getPembelianId($id)
+    {
 
         //Gets currently logged user
         $user = Auth::user();
-        
+
         //Checks if user is eithr admin or pengguna
-        if($user->user_level === 'ADMIN' || $user->user_level === 'PENGGUNA'){
-            
+        if ($user->user_level === 'ADMIN' || $user->user_level === 'PENGGUNA') {
+
             $data = pembelianModel::with([
                 'user',
                 'metodePembayaran',
                 'detailPembelian',
                 'detailPembelian.pakaian'
             ])->find($id);
-            
+
             //Checks if the user is authorized within the selected data entry
-            if($data->user_id !== $user->user_id || $user->user_level === 'ADMIN'){
+            if ($data->user_id !== $user->user_id || $user->user_level === 'ADMIN') {
 
                 return response()->json(['status' => false, 'message' => 'Unauthorized'], 403);
 
             }
 
-            if($data){
+            if ($data) {
 
                 return response()->json(['status' => true, 'message' => 'Data fetched', 'data' => $data], 200);
-           
+
             } else {
 
                 return response()->json(['status' => false, 'message' => 'Data not found'], 404);
-            
+
             }
 
         } else {
@@ -83,14 +106,14 @@ class transaksiController extends Controller
 
         //Gets transaction data
         $data = pembelianModel::where('user_id', $user->user_id)
-        ->orderBy('pembelian_tanggal', 'desc')
-        ->first();
+            ->orderBy('pembelian_tanggal', 'desc')
+            ->first();
 
         // Check if the user is pengguna
         if ($user->user_level === 'PENGGUNA') {
 
             // Allow transaction if there's no previous data or if the last transaction is not BELUM_LUNAS
-            if($data && $data->status === 'BELUM_LUNAS'){
+            if ($data && $data->status === 'BELUM_LUNAS') {
                 return response()->json(['status' => false, 'message' => 'Last transaction has not been paid'], 400);
             }
 
@@ -214,7 +237,7 @@ class transaksiController extends Controller
             return response()->json(['status' => true, 'message' => 'Transaction deleted'], 200);
 
         } else {
-            
+
             return response()->json(['status' => false, 'message' => 'Failed to delete'], 403);
 
         }

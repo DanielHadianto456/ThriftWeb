@@ -30,6 +30,7 @@ Route::middleware('auth:user_model')->group(function(){
     Route::controller(pakaianController::class)->group(function(){
         //user
         Route::get('user/pakaian', 'getAll');
+        // Route::get('user/pakaian', 'getPembelianUser');
         //admin
         Route::get('admin/pakaian', 'getAll');
         Route::post('admin/pakaian/add', 'addPakaian');
@@ -42,7 +43,8 @@ Route::middleware('auth:user_model')->group(function(){
         //User
         Route::post('user/pembelian/add', 'addPembelian2');
         Route::get('user/pembelian/detail/{id}', 'getPembelianId');
-        Route::get('user/pembelian', 'getAllPembelian');
+        // Route::get('user/pembelian', 'getAllPembelian');
+        Route::get('user/pembelian', 'getPembelianUser');
         Route::patch('user/pembelian/confirm/{id}', 'updateStatus');
         //Admin
         Route::get('admin/pembelian/detail/{id}', 'getPembelianId');
