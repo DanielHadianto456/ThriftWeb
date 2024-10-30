@@ -9,6 +9,7 @@ import NotFound from '../components/pages/NotFound.vue';
 import LoginPage from '../components/pages/LoginPage.vue';
 import AdminDashboard from '../components/pages/admin/AdminDashboard.vue';
 import AllTransactions from '../components/pages/admin/AllTransactions.vue';
+import AllClothing from '../components/pages/admin/AllClothing.vue';
 
 const routes = [
   {
@@ -26,6 +27,12 @@ const routes = [
     path: '/admin/add-clothing',
     component: AddClothing,
     name: 'AddClothing',
+    meta: { requiresRole: ['ADMIN'] },
+  },
+  {
+    path: '/admin/all-clothing',
+    component: AllClothing,
+    name: 'AllClothing',
     meta: { requiresRole: ['ADMIN'] },
   },
   {

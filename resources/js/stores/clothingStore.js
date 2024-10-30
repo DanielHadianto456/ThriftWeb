@@ -43,5 +43,24 @@ export const useClothingStore = defineStore("clothingStore", {
         throw error;
       }
     },
+    async getAllClothing() {
+        try {
+          const token = localStorage.getItem("token");
+          const response = await fetch("/api/admin/pakaian", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const data = await response.json();
+          if (data.status) {
+            return data.data;
+          } else {
+            throw new Error(data.message);
+          }
+        } catch (error) {
+          console.error("Failed to fetch clothing items:", error);
+          throw error;
+        }
+      },
   },
 });
