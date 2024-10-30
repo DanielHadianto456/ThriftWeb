@@ -6,6 +6,7 @@ import HistoryPage from '../components/pages/user/HistoryPage.vue';
 import AddClothing from '../components/pages/admin/AddClothing.vue';
 import NotFound from '../components/pages/NotFound.vue';
 import LoginPage from '../components/pages/LoginPage.vue';
+import AdminDashboard from '../components/pages/admin/AdminDashboard.vue';
 
 const routes = [
     {
@@ -23,6 +24,12 @@ const routes = [
         path: '/admin/AddClothing',
         component: AddClothing,
         name: 'AddClothing', 
+        meta: { requiresRole: ['ADMIN'] }
+    },
+    {
+        path: '/admin',
+        component: AdminDashboard,
+        name: 'admin', 
         meta: { requiresRole: ['ADMIN'] }
     },
     {
