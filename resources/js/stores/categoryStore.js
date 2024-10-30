@@ -24,5 +24,26 @@ export const useCategoryStore = defineStore("categoryStore", {
         throw error;
       }
     },
+    async addCategory(category) {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await fetch("/api/admin/kategori/add", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(category),
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.message || "Failed to add category");
+        }
+        return data;
+      } catch (error) {
+        console.error("Failed to add category:", error);
+        throw error;
+      }
+    },
   },
 });
