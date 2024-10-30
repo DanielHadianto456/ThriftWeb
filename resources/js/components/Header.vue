@@ -35,6 +35,8 @@ export default {
         const store = useUserStore();
         this.username = store.username;
         this.role = store.role;
+        console.log(this.username)
+        console.log(this.role)
       } catch (error) {
         console.error("Failed to fetch user data:", error);
       }

@@ -6,11 +6,27 @@
       <h2>Transaction Details</h2>
       
       <div v-if="transaction">
-        <p><strong>Tanggal:</strong> {{ transaction.pembelian_tanggal }}</p>
-        <p><strong>Pelanggan:</strong> {{ transaction.user.user_fullname }}</p>
-        <p><strong>Metode Pembayaran:</strong> {{ transaction.metode_pembayaran.metode_pembayaran_jenis }}</p>
-        <p><strong>Total Harga:</strong> Rp. {{ transaction.pembelian_total_harga.toLocaleString("id-ID") }}</p>
-        <p><strong>Status:</strong> {{ transaction.status }}</p>
+        <div class="transaction-detail-row">
+          <p><strong>Tanggal:</strong> {{ transaction.pembelian_tanggal }}</p>
+        </div>
+        <div class="transaction-detail-row">
+          <p><strong>Pelanggan:</strong> {{ transaction.user.user_fullname }}</p>
+        </div>
+        <div class="transaction-detail-row">
+          <p><strong>Username:</strong> {{ transaction.user.user_username }}</p>
+        </div>
+        <div class="transaction-detail-row">
+          <p><strong>Metode Pembayaran:</strong> {{ transaction.metode_pembayaran.metode_pembayaran_jenis }}</p>
+        </div>
+        <div class="transaction-detail-row">
+          <p><strong>Total Harga:</strong> Rp. {{ transaction.pembelian_total_harga.toLocaleString("id-ID") }}</p>
+        </div>
+        <div class="transaction-detail-row">
+          <p><strong>Status:</strong> {{ transaction.status }}</p>
+        </div>
+        <div class="transaction-detail-row">
+          <p><strong>Nomor Transaksi:</strong> {{ transaction.metode_pembayaran.metode_pembayaran_nomor ?? 'N/A' }}</p>
+        </div>
 
         <h3>Detail Pembelian</h3>
         <ul>
@@ -109,5 +125,9 @@ export default {
 
 .close-modal-button:hover {
   color: #f44336;
+}
+
+.transaction-detail-row {
+  margin-bottom: 10px; /* Adjust the value as needed */
 }
 </style>

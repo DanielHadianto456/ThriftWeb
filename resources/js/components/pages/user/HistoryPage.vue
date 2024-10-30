@@ -23,7 +23,7 @@
           <tbody>
             <tr v-for="transaction in filteredTransactions" :key="transaction.pembelian_id">
               <td>{{ transaction.pembelian_tanggal }}</td>
-              <td>{{ transaction.user.user_fullname }}</td>
+              <td>{{ transaction.user.user_username }}</td>
               <td>{{ transaction.metode_pembayaran.metode_pembayaran_jenis }}</td>
               <td>Rp. {{ transaction.pembelian_total_harga.toLocaleString("id-ID") }}</td>
               <td :style="{ color: transaction.status === 'BELUM_LUNAS' ? '#BE0000' : 'green', fontWeight: 'bold' }">
