@@ -56,7 +56,7 @@ Route::middleware('auth:user_model')->group(function(){
     });
 
     Route::controller(pembelianDetailController::class)->group(function(){
-        Route::post('user/pembelian/detail/{pembelian_id}',  'addPembelianDetail');
+        Route::post('user/pembelian/detail/add/{pembelian_id}',  'addPembelianDetail');
     });
 
     Route::controller(userController::class)->group(function(){
