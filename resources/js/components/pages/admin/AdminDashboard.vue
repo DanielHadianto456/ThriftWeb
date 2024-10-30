@@ -1,13 +1,10 @@
 <template>
-  <Header />
+  <Sidebar />
   <div class="wrapper">
     <div class="header-container">
       <div class="title-container">
         <h1>Admin Dashboard</h1>
         <h2>Manage Your Application</h2>
-      </div>
-      <div class="button-container">
-        <button @click="navigateToAddClothing">Add Clothing Item</button>
       </div>
     </div>
     <div class="content-container">
@@ -34,20 +31,18 @@
 <script>
 import { ref, onMounted } from "vue";
 import { useAdminStore } from "@/stores/adminStore";
-import Header from "../../Header.vue";
-import { useRouter } from "vue-router";
+import Sidebar from "../../Sidebar.vue";
 
 export default {
   name: "AdminDashboard",
   components: {
-    Header,
+    Sidebar,
   },
   setup() {
     const userCount = ref(0);
     const transactionCount = ref(0);
     const clothingCount = ref(0);
     const categoryCount = ref(0);
-    const router = useRouter();
 
     const fetchUserCount = async () => {
       try {
@@ -89,10 +84,6 @@ export default {
       }
     };
 
-    const navigateToAddClothing = () => {
-      router.push({ name: "AddClothing" });
-    };
-
     onMounted(() => {
       fetchUserCount();
       fetchTransactionCount();
@@ -105,7 +96,6 @@ export default {
       transactionCount,
       clothingCount,
       categoryCount,
-      navigateToAddClothing,
     };
   },
 };
@@ -114,6 +104,7 @@ export default {
 <style scoped>
 .wrapper {
   padding: 1rem;
+  margin-left: 250px; /* Adjust for sidebar width */
 }
 
 .header-container {
@@ -125,24 +116,6 @@ export default {
 
 .title-container h1 {
   margin: 0;
-}
-
-.button-container {
-  display: flex;
-  align-items: center;
-}
-
-button {
-  padding: 0.5rem 1rem;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
-  margin-left: 1rem;
-}
-
-button:hover {
-  background-color: #0056b3;
 }
 
 .content-container {

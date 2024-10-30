@@ -1,5 +1,5 @@
 <template>
-  <Header />
+  <Sidebar />
   <div class="wrapper">
     <div class="header-container">
       <div class="title-container">
@@ -19,12 +19,12 @@
 <script>
 import { ref } from "vue";
 import { useCategoryStore } from "@/stores/categoryStore";
-import Header from "../../Header.vue";
+import Sidebar from "../../Sidebar.vue";
 
 export default {
   name: "AddCategory",
   components: {
-    Header,
+    Sidebar,
   },
   setup() {
     const kategori_pakaian_nama = ref("");
@@ -52,6 +52,7 @@ export default {
 <style scoped>
 .wrapper {
   padding: 1rem;
+  margin-left: 250px; /* Adjust for sidebar width */
 }
 
 .header-container {

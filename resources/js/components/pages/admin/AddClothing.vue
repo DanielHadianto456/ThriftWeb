@@ -1,5 +1,5 @@
 <template>
-  <Header />
+  <Sidebar />
   <div class="wrapper">
     <div class="header-container">
       <div class="title-container">
@@ -40,12 +40,12 @@
 import { ref, onMounted } from "vue";
 import { useClothingStore } from "@/stores/clothingStore";
 import { useCategoryStore } from "@/stores/categoryStore";
-import Header from "../../Header.vue";
+import Sidebar from "../../Sidebar.vue";
 
 export default {
   name: "AddClothing",
   components: {
-    Header,
+    Sidebar,
   },
   setup() {
     const kategori_pakaian_id = ref("");
@@ -108,6 +108,7 @@ export default {
 <style scoped>
 .wrapper {
   padding: 1rem;
+  margin-left: 250px; /* Adjust for sidebar width */
 }
 
 .header-container {
