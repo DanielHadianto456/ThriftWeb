@@ -62,5 +62,46 @@ export const useClothingStore = defineStore("clothingStore", {
           throw error;
         }
       },
+      async addStock(pakaian_id, stock) {
+        try {
+          const token = localStorage.getItem("token");
+          const response = await fetch(`/api/admin/pakaian/add-stock/${pakaian_id}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ pakaian_stok: stock }),
+          });
+          const data = await response.json();
+          if (!response.ok) {
+            throw new Error(data.message || "Failed to add stock");
+          }
+          return data;
+        } catch (error) {
+          console.error("Failed to add stock:", error);
+          throw error;
+        }
+      },
+      async editClothing(pakaian_id, formData) {
+        try {
+          const token = localStorage.getItem("token");
+          const response = await fetch(`/api/admin/pakaian/edit/${pakaian_id}`, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            body: formData,
+          });
+          const data = await response.json();
+          if (!response.ok) {
+            throw new Error(data.message || "Failed to edit clothing item");
+          }
+          return data;
+        } catch (error) {
+          console.error("Failed to edit clothing item:", error);
+          throw error;
+        }
+      },
   },
 });

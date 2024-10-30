@@ -16,6 +16,7 @@
             <td>Category</td>
             <td>Price</td>
             <td>Stock</td>
+            <td>Actions</td>
           </tr>
         </thead>
         <tbody>
@@ -25,10 +26,16 @@
             <td>{{ clothing.kategori.kategori_pakaian_nama }}</td>
             <td>Rp. {{ clothing.pakaian_harga.toLocaleString("id-ID") }}</td>
             <td>{{ clothing.pakaian_stok }}</td>
+            <td>
+              <button @click="openAddStockModal(clothing.pakaian_id)">Add Stock</button>
+              <button @click="openEditModal(clothing.pakaian_id)">Edit</button>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
+    <AddStockModal :isOpen="isAddStockModalOpen" :pakaianId="selectedPakaianId" @close="closeAddStockModal" @stockAdded="fetchClothings" />
+    <EditClothingModal :isOpen="isEditModalOpen" :pakaianId="selectedPakaianId" @close="closeEditModal" @clothingEdited="fetchClothings" />
   </div>
 </template>
 
@@ -36,14 +43,21 @@
 import { ref, onMounted } from "vue";
 import { useClothingStore } from "@/stores/clothingStore";
 import Sidebar from "../../Sidebar.vue";
+import AddStockModal from "../../AddStockModal.vue";
+import EditClothingModal from "../../EditClothingModal.vue";
 
 export default {
   name: "AllClothing",
   components: {
     Sidebar,
+    AddStockModal,
+    EditClothingModal,
   },
   setup() {
     const clothings = ref([]);
+    const isAddStockModalOpen = ref(false);
+    const isEditModalOpen = ref(false);
+    const selectedPakaianId = ref(null);
 
     const fetchClothings = async () => {
       try {
@@ -55,12 +69,40 @@ export default {
       }
     };
 
+    const openAddStockModal = (pakaianId) => {
+      selectedPakaianId.value = pakaianId;
+      isAddStockModalOpen.value = true;
+    };
+
+    const closeAddStockModal = () => {
+      isAddStockModalOpen.value = false;
+      selectedPakaianId.value = null;
+    };
+
+    const openEditModal = (pakaianId) => {
+      selectedPakaianId.value = pakaianId;
+      isEditModalOpen.value = true;
+    };
+
+    const closeEditModal = () => {
+      isEditModalOpen.value = false;
+      selectedPakaianId.value = null;
+    };
+
     onMounted(() => {
       fetchClothings();
     });
 
     return {
       clothings,
+      isAddStockModalOpen,
+      isEditModalOpen,
+      selectedPakaianId,
+      openAddStockModal,
+      closeAddStockModal,
+      openEditModal,
+      closeEditModal,
+      fetchClothings,
     };
   },
 };
