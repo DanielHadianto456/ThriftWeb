@@ -21,7 +21,7 @@ const routes = [
         meta: { requiresRole: ['PENGGUNA'] }
     },
     {
-        path: '/admin/AddClothing',
+        path: '/admin/add',
         component: AddClothing,
         name: 'AddClothing', 
         meta: { requiresRole: ['ADMIN'] }
