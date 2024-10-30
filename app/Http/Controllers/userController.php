@@ -62,4 +62,18 @@ class userController extends Controller
         $user = Auth::user();
         return response()->json(['status' => true, 'data' => $user], 200);
     }
+
+    //Function used to get all users
+    public function getAll()
+    {   
+        $Auth = Auth::user();
+
+        if($Auth->user_level != 'ADMIN'){
+            return response()->json(['status' => false, 'message' => 'You are not authorized to access this page'], 401);
+        }
+
+        $user = userModel::all();
+        return response()->json(['status' => true, 'data' => $user], 200);
+    
+    }
 }
