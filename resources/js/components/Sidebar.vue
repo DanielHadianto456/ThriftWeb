@@ -7,6 +7,7 @@
       <router-link class="sidebar-item" to="/admin">Admin Dashboard</router-link>
       <router-link class="sidebar-item" to="/admin/add-clothing">Add Clothing</router-link>
       <router-link class="sidebar-item" to="/admin/add-category">Add Category</router-link>
+      <router-link class="sidebar-item" to="/admin/all-transactions">All Transactions</router-link>
       <span @click="logout" class="sidebar-item">Logout</span>
     </div>
   </div>

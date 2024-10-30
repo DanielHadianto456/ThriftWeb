@@ -8,6 +8,7 @@ import AddCategory from '../components/pages/admin/AddCategory.vue';
 import NotFound from '../components/pages/NotFound.vue';
 import LoginPage from '../components/pages/LoginPage.vue';
 import AdminDashboard from '../components/pages/admin/AdminDashboard.vue';
+import AllTransactions from '../components/pages/admin/AllTransactions.vue';
 
 const routes = [
   {
@@ -31,6 +32,12 @@ const routes = [
     path: '/admin/add-category',
     component: AddCategory,
     name: 'AddCategory',
+    meta: { requiresRole: ['ADMIN'] },
+  },
+  {
+    path: '/admin/all-transactions',
+    component: AllTransactions,
+    name: 'AllTransactions',
     meta: { requiresRole: ['ADMIN'] },
   },
   {
