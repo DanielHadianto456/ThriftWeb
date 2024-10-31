@@ -33,7 +33,7 @@ class AuthController extends Controller
             'user_email' => 'required|string|max:50',
             'user_nohp' => 'required|string|max:13',
             'user_alamat' => 'required|string|max:200',
-            'user_profil_url' => 'required|string|max:255',
+            'user_profil_url' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'user_level' => 'required',
         ]);
 
@@ -41,6 +41,13 @@ class AuthController extends Controller
             
             return response()->json($validator->errors()->toJson(), 400);
         
+        }
+
+        // Handle image upload
+        if ($request->hasFile('user_profil_url')) {
+            $image = $request->file('user_profil_url');
+            $imageName = $image->getClientOriginalName();
+            $imagePath = $image->storeAs('images/profile', $imageName, 'public');
         }
 
         // Save user
@@ -52,7 +59,7 @@ class AuthController extends Controller
             'user_email' => $request->get('user_email'),
             'user_nohp' => $request->get('user_nohp'),
             'user_alamat' => $request->get('user_alamat'),
-            'user_profil_url' => $request->get('user_profil_url'),
+            'user_profil_url' => $imagePath,
             'user_level' => $request->get('user_level'),
         ]);
 
