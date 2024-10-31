@@ -60,7 +60,8 @@
      npm run dev
      ```
 
-10. **Admin Account**  
+10. **Admin Account**
+    
     When the migrations are run, an admin account is automatically created. You can use the following credentials to log in:
 
     - **Username**: `demoadmin1`
