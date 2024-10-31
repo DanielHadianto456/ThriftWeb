@@ -1,6 +1,6 @@
 <template>
   <Sidebar />
-  <div class="wrapper">
+  <div :class="['wrapper', { 'wrapper-mobile': isMobile }]">
     <div class="header-container">
       <div class="title-container">
         <h1>Admin Dashboard</h1>
@@ -43,6 +43,7 @@ export default {
     const transactionCount = ref(0);
     const clothingCount = ref(0);
     const categoryCount = ref(0);
+    const isMobile = ref(window.innerWidth <= 768);
 
     const fetchUserCount = async () => {
       try {
@@ -89,6 +90,9 @@ export default {
       fetchTransactionCount();
       fetchClothingCount();
       fetchCategoryCount();
+      window.addEventListener('resize', () => {
+        isMobile.value = window.innerWidth <= 768;
+      });
     });
 
     return {
@@ -96,6 +100,7 @@ export default {
       transactionCount,
       clothingCount,
       categoryCount,
+      isMobile,
     };
   },
 };
@@ -104,7 +109,12 @@ export default {
 <style scoped>
 .wrapper {
   padding: 1rem;
-  margin-left: 250px; /* Adjust for sidebar width */
+  margin-left: 250px; /* Set to sidebar width */
+}
+
+.wrapper-mobile {
+  margin-left: 0;
+  padding-top: 4rem; /* Add padding for mobile view to avoid overlap */
 }
 
 .header-container {

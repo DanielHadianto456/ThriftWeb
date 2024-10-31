@@ -1,6 +1,6 @@
 <template>
   <Sidebar />
-  <div class="wrapper">
+  <div :class="['wrapper', { 'wrapper-mobile': isMobile }]">
     <div class="header-container">
       <div class="title-container">
         <h1>All Transactions</h1>
@@ -54,6 +54,7 @@ export default {
     const transactions = ref([]);
     const isModalOpen = ref(false);
     const selectedTransactionId = ref(null);
+    const isMobile = ref(window.innerWidth <= 768);
 
     const fetchTransactions = async () => {
       try {
@@ -77,6 +78,9 @@ export default {
 
     onMounted(() => {
       fetchTransactions();
+      window.addEventListener('resize', () => {
+        isMobile.value = window.innerWidth <= 768;
+      });
     });
 
     return {
@@ -85,6 +89,7 @@ export default {
       selectedTransactionId,
       openModal,
       closeModal,
+      isMobile,
     };
   },
 };
@@ -94,6 +99,11 @@ export default {
 .wrapper {
   padding: 1rem;
   margin-left: 250px; /* Adjust for sidebar width */
+}
+
+.wrapper-mobile {
+  margin-left: 0;
+  padding-top: 4rem; /* Add padding for mobile view to avoid overlap */
 }
 
 .header-container {

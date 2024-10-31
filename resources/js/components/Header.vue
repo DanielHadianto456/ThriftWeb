@@ -48,7 +48,7 @@ export default {
         const userStore = useUserStore();
         userStore.$reset();
         localStorage.removeItem("token");
-        this.$router.push({ name: "Login" });
+        this.$router.push({ name: "login" });
       } catch (error) {
         console.error("Failed to logout:", error);
       }

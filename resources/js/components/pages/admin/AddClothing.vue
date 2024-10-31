@@ -1,6 +1,6 @@
 <template>
   <Sidebar />
-  <div class="wrapper">
+  <div :class="['wrapper', { 'wrapper-mobile': isMobile }]">
     <div class="header-container">
       <div class="title-container">
         <h1>Add Clothing Item</h1>
@@ -54,6 +54,7 @@ export default {
     const pakaian_stok = ref("");
     const pakaian_gambar_url = ref(null);
     const categories = ref([]);
+    const isMobile = ref(window.innerWidth <= 768);
 
     const handleFileUpload = (event) => {
       pakaian_gambar_url.value = event.target.files[0];
@@ -89,6 +90,9 @@ export default {
 
     onMounted(() => {
       fetchCategories();
+      window.addEventListener('resize', () => {
+        isMobile.value = window.innerWidth <= 768;
+      });
     });
 
     return {
@@ -100,6 +104,7 @@ export default {
       categories,
       handleFileUpload,
       addClothing,
+      isMobile,
     };
   },
 };
@@ -109,6 +114,11 @@ export default {
 .wrapper {
   padding: 1rem;
   margin-left: 250px; /* Adjust for sidebar width */
+}
+
+.wrapper-mobile {
+  margin-left: 0;
+  padding-top: 4rem; /* Add padding for mobile view to avoid overlap */
 }
 
 .header-container {

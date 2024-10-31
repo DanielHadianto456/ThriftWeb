@@ -1,6 +1,6 @@
 <template>
   <Sidebar />
-  <div class="wrapper">
+  <div :class="['wrapper', { 'wrapper-mobile': isMobile }]">
     <div class="header-container">
       <div class="title-container">
         <h1>Add Category</h1>
@@ -28,6 +28,7 @@ export default {
   },
   setup() {
     const kategori_pakaian_nama = ref("");
+    const isMobile = ref(window.innerWidth <= 768);
 
     const addCategory = async () => {
       try {
@@ -41,9 +42,16 @@ export default {
       }
     };
 
+    onMounted(() => {
+      window.addEventListener('resize', () => {
+        isMobile.value = window.innerWidth <= 768;
+      });
+    });
+
     return {
       kategori_pakaian_nama,
       addCategory,
+      isMobile,
     };
   },
 };
@@ -53,6 +61,11 @@ export default {
 .wrapper {
   padding: 1rem;
   margin-left: 250px; /* Adjust for sidebar width */
+}
+
+.wrapper-mobile {
+  margin-left: 0;
+  padding-top: 4rem; /* Add padding for mobile view to avoid overlap */
 }
 
 .header-container {
