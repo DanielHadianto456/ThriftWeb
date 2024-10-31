@@ -8,6 +8,7 @@ import AddCategory from '../components/pages/admin/AddCategory.vue';
 import AllCategories from '../components/pages/admin/AllCategories.vue';
 import NotFound from '../components/pages/NotFound.vue';
 import LoginPage from '../components/pages/LoginPage.vue';
+import RegisterPage from '../components/pages/RegisterPage.vue';
 import AdminDashboard from '../components/pages/admin/AdminDashboard.vue';
 import AllTransactions from '../components/pages/admin/AllTransactions.vue';
 import AllClothing from '../components/pages/admin/AllClothing.vue';
@@ -73,6 +74,11 @@ const routes = [
     name: 'login',
   },
   {
+    path: '/register',
+    component: RegisterPage,
+    name: 'register',
+  },
+  {
     path: '/:pathMatch(.*)*',
     component: NotFound,
     name: 'NotFound',
@@ -101,7 +107,7 @@ router.beforeEach((to, from, next) => {
 
   const isLoggedIn = !!role;
 
-  if (!isLoggedIn && to.name !== 'login') {
+  if (!isLoggedIn && to.name !== 'login' && to.name !== 'register') {
     return next({ name: 'login' });
   }
 
@@ -124,5 +130,47 @@ router.beforeEach((to, from, next) => {
     next(); // Allow navigation if no role is required
   }
 });
+
+
+// router.beforeEach((to, from, next) => {
+//   const token = localStorage.getItem('token');
+//   let role = null;
+
+//   if (token) {
+//     try {
+//       const decodedToken = jwtDecode(token);
+//       role = decodedToken.role;
+//       console.log('Role:', role);
+//     } catch (error) {
+//       console.error('Invalid token:', error);
+//       return next({ name: 'login' });
+//     }
+//   }
+
+//   const isLoggedIn = !!role;
+
+//   if (!isLoggedIn && to.name !== 'login') {
+//     return next({ name: 'login' });
+//   }
+
+//   if (to.path === '/' && isLoggedIn) {
+//     if (role === 'ADMIN' && to.name !== 'admin') {
+//       return next({ name: 'admin' });
+//     } else if (role === 'PENGGUNA' && to.name !== 'Home') {
+//       return next({ name: 'Home' });
+//     }
+//   }
+
+//   if (to.matched.some(record => record.meta.requiresRole)) {
+//     const requiredRole = to.meta.requiresRole;
+//     if (isLoggedIn && requiredRole.includes(role)) {
+//       next(); // Allow access if role matches
+//     } else {
+//       next({ name: 'NotFound' });
+//     }
+//   } else {
+//     next(); // Allow navigation if no role is required
+//   }
+// });
 
 export default router;

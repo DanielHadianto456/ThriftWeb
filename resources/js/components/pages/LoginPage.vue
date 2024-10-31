@@ -12,6 +12,9 @@
       </div>
       <button type="submit">Login</button>
     </form>
+    <div>
+      <router-link to="/register">Don't have an account? Register here.</router-link>
+    </div>
   </div>
 </template>
 

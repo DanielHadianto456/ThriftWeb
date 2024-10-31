@@ -34,7 +34,7 @@ class AuthController extends Controller
             'user_nohp' => 'required|string|max:13',
             'user_alamat' => 'required|string|max:200',
             'user_profil_url' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'user_level' => 'required',
+            // 'user_level' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -60,7 +60,7 @@ class AuthController extends Controller
             'user_nohp' => $request->get('user_nohp'),
             'user_alamat' => $request->get('user_alamat'),
             'user_profil_url' => $imagePath,
-            'user_level' => $request->get('user_level'),
+            'user_level' => 'PENGGUNA',
         ]);
 
         if ($save) {
