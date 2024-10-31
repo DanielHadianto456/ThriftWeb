@@ -102,19 +102,21 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
    php artisan storage:link
 
 9. **Start the Development Server:**
-    Open two terminals and run the following commands:
-   <ul>
-       <li>
-           In the first terminal, start the Laravel development server:
-           ```bash
-           php artisan serve
-       </li>
-       <li>
-           In the second terminal, start the front-end development server:
-           ```bash
-           npm run dev
-       </li>
-   </ul>
+
+   Open two terminals and run the following commands:
+
+   - **In the first terminal, start the Laravel development server:**
+
+     ```bash
+     php artisan serve
+     ```
+
+   - **In the second terminal, start the front-end development server:**
+
+     ```bash
+     npm run dev
+     ```
+
    
 
 
