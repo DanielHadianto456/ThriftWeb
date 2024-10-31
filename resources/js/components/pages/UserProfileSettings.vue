@@ -1,34 +1,37 @@
 <template>
-  <Sidebar />
-  <div class="profile-settings-page">
-    <h1>User Profile Settings</h1>
-    <form @submit.prevent="updateProfile">
-      <div>
-        <label for="fullname">Full Name:</label>
-        <input type="text" v-model="fullname" id="fullname"  />
-      </div>
-      <div>
-        <label for="username">Username:</label>
-        <input type="text" v-model="username" id="username"  />
-      </div>
-      <div>
-        <label for="email">Email:</label>
-        <input type="email" v-model="email" id="email"  />
-      </div>
-      <div>
-        <label for="nohp">Phone Number:</label>
-        <input type="text" v-model="nohp" id="nohp"  />
-      </div>
-      <div>
-        <label for="alamat">Address:</label>
-        <input type="text" v-model="alamat" id="alamat"  />
-      </div>
-      <div>
-        <label for="profil_url">Profile Image:</label>
-        <input type="file" @change="handleFileUpload" id="profil_url" />
-      </div>
-      <button type="submit">Update Profile</button>
-    </form>
+  <div>
+    <Sidebar v-if="role === 'ADMIN'" />
+    <Header v-else />
+    <div class="profile-settings-page">
+      <h1>User Profile Settings</h1>
+      <form @submit.prevent="updateProfile">
+        <div>
+          <label for="fullname">Full Name:</label>
+          <input type="text" v-model="fullname" id="fullname" />
+        </div>
+        <div>
+          <label for="username">Username:</label>
+          <input type="text" v-model="username" id="username" />
+        </div>
+        <div>
+          <label for="email">Email:</label>
+          <input type="email" v-model="email" id="email" />
+        </div>
+        <div>
+          <label for="nohp">Phone Number:</label>
+          <input type="text" v-model="nohp" id="nohp" />
+        </div>
+        <div>
+          <label for="alamat">Address:</label>
+          <input type="text" v-model="alamat" id="alamat" />
+        </div>
+        <div>
+          <label for="profil_url">Profile Image:</label>
+          <input type="file" @change="handleFileUpload" id="profil_url" />
+        </div>
+        <button type="submit">Update Profile</button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -36,11 +39,13 @@
 import { ref, onMounted } from "vue";
 import { useUserStore } from "@/stores/userStore";
 import Sidebar from "../Sidebar.vue";
+import Header from "../Header.vue";
 
 export default {
   name: "UserProfileSettings",
   components: {
     Sidebar,
+    Header,
   },
   setup() {
     const fullname = ref("");
@@ -49,9 +54,20 @@ export default {
     const nohp = ref("");
     const alamat = ref("");
     const profil_url = ref(null);
+    const role = ref(null);
 
     const handleFileUpload = (event) => {
       profil_url.value = event.target.files[0];
+    };
+
+    const fetchUserRole = async () => {
+      try {
+        const store = useUserStore();
+        const data = await store.getProfile();
+        role.value = data.user_level;
+      } catch (error) {
+        console.error("Failed to fetch user role:", error);
+      }
     };
 
     const fetchProfile = async () => {
@@ -90,6 +106,7 @@ export default {
     };
 
     onMounted(() => {
+      fetchUserRole();
       fetchProfile();
     });
 
@@ -102,6 +119,7 @@ export default {
       profil_url,
       handleFileUpload,
       updateProfile,
+      role,
     };
   },
 };

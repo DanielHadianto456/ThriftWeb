@@ -5,10 +5,13 @@
     </div>
     <div></div>
     <div class="items" v-if="username">
+      <img :src="profileImageUrl" alt="Profile Image" class="profile-image" />
       <span class="item">Welcome, {{ username }}</span>
       <router-link class="item" to="/">Home</router-link>
       <router-link class="item" to="/user/HistoryPage">History</router-link>
-      <router-link v-if="role === 'ADMIN'" class="item" to="/admin">Admin Panel</router-link>
+      <router-link class="item" to="/settings">Settings</router-link>
+      
+      <!-- <router-link v-if="role === 'ADMIN'" class="item" to="/admin">Admin Panel</router-link> -->
       <span @click="logout" class="item">Logout</span>
     </div>
     <div class="items" v-else>
@@ -27,16 +30,17 @@ export default {
     return {
       username: null,
       role: null,
+      profileImageUrl: null,
     };
   },
   methods: {
-    fetchUserData() {
+    async fetchUserData() {
       try {
         const store = useUserStore();
-        this.username = store.username;
-        this.role = store.role;
-        console.log(this.username)
-        console.log(this.role)
+        const data = await store.getProfile();
+        this.username = data.user_username;
+        this.role = data.user_level;
+        this.profileImageUrl = `/storage/${data.user_profil_url}`;
       } catch (error) {
         console.error("Failed to fetch user data:", error);
       }
@@ -70,35 +74,35 @@ export default {
   color: white;
   font-family: 'Poppins', sans-serif; /* Use Poppins font */
 }
-
 .hero h1 {
   margin: 0;
 }
-
 .items {
   display: flex;
   align-items: center;
 }
-
 .item {
   margin-left: 1rem;
   cursor: pointer;
   color: white; /* Ensure text color is white */
   text-decoration: none; /* Remove underline */
 }
-
 .item:hover {
   text-decoration: underline;
 }
-
 .item:active,
 .item:focus,
 .item:visited {
   color: white; /* Ensure text color remains white */
   text-decoration: none; /* Remove underline */
 }
-
 .router-link-active {
   color: white; /* Ensure active link color remains white */
+}
+.profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
 }
 </style>
