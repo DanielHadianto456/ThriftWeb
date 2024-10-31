@@ -30,6 +30,33 @@ export const useRegister = defineStore("registerStore", {
         console.error("Registration failed:", error);
       }
     },
+    async registerAdmin(apiRoute, formData) {
+      try {
+        const token = localStorage.getItem("token"); 
+
+        const res = await fetch(`/api/${apiRoute}`, {
+          method: "POST",
+          headers: {
+            // "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`, 
+          },
+          body: formData,
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          console.log(data);
+          // const router = useRouter();
+          this.router.push({ name: "AllUsers" });
+        } else {
+          alert("Username already exists");
+        }
+      } catch (error) {
+        console.error("Registration failed:", error);
+      }
+    },
   },
 });
 

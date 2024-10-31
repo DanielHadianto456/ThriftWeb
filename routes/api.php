@@ -66,6 +66,10 @@ Route::middleware('auth:user_model')->group(function(){
         //Admin
         Route::get('admin/users', 'getAll');
     });
+
+    Route::controller( AuthController::class)->group(function(){
+        Route::post('/admin/register', 'RegisterAdmin');
+    });
     
     
 });
