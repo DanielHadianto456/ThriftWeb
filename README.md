@@ -9,22 +9,22 @@
 2. **Create Environment File**: 
 
    Rename the .env.example file to .env
+
+3. **Configure Database:** 
+
+   Open the .env file and set your database credentials accordingly.
    
-3. **Generate Application Key**: 
+4. **Generate Application Key**: 
 
    Generate a new application key for your Laravel application:
    ```bash
    php artisan key:generate
    
-4. **Generate JWT Secret:** 
+5. **Generate JWT Secret:** 
 
    Run the following command to generate a JWT secret for your application:
    ```bash
    php artisan jwt:secret
-   
-5. **Configure Database:** 
-
-   Open the .env file and set your database credentials accordingly.
    
 6. **Run Migrations:**
 
