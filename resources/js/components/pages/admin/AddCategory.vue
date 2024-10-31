@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useCategoryStore } from "@/stores/categoryStore";
 import Sidebar from "../../Sidebar.vue";
 
