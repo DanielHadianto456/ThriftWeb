@@ -20,8 +20,15 @@ class userController extends Controller
             'user_email' => 'nullable|string|email|max:50|unique:user,user_email,' . $user->user_id . ',user_id',
             'user_nohp' => 'nullable|string|max:13',
             'user_alamat' => 'nullable|string|max:200',
-            'user_profil_url' => 'nullable|string|max:255',
+            'user_profil_url' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        // Handle image upload
+        if ($request->hasFile('user_profil_url')) {
+            $image = $request->file('user_profil_url');
+            $imageName = $image->getClientOriginalName();
+            $imagePath = $image->storeAs('images/profile', $imageName, 'public');
+        }
 
         $user->update([
             'user_fullname' => $request->user_fullname ?? $user->user_fullname,
@@ -29,7 +36,7 @@ class userController extends Controller
             'user_email' => $request->user_email ?? $user->user_email,
             'user_nohp' => $request->user_nohp ?? $user->user_nohp,
             'user_alamat' => $request->user_alamat ?? $user->user_alamat,
-            'user_profil_url' => $request->user_profil_url ?? $user->user_profil_url,
+            'user_profil_url' => $imagePath ?? $user->user_profil_url,
         ]);
 
         return response()->json(['status' => true, 'message' => 'Profile updated successfully', 'data' => $user], 200);

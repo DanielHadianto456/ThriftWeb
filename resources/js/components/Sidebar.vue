@@ -11,6 +11,7 @@
         <router-link class="sidebar-item" to="/admin/all-transactions">Transactions</router-link>
         <router-link class="sidebar-item" to="/admin/all-clothing">Clothing</router-link>
         <router-link class="sidebar-item" to="/admin/all-users">Users</router-link>
+        <router-link class="sidebar-item" to="/settings">Account Settings</router-link>
         <span @click="logout" class="sidebar-item">Logout</span>
       </div>
     </div>
