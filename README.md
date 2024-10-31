@@ -1,4 +1,4 @@
-## Project Installation Procedure
+## Project Setup Procedure
 
 1. **Install Dependencies**:
    
