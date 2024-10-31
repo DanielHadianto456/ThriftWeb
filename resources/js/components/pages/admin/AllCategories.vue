@@ -1,6 +1,6 @@
 <template>
   <Sidebar />
-  <div class="wrapper">
+  <div :class="['wrapper', { 'wrapper-mobile': isMobile }]">
     <div class="header-container">
       <div class="title-container">
         <h1>All Categories</h1>
@@ -46,6 +46,7 @@ export default {
     const categories = ref([]);
     const isEditModalOpen = ref(false);
     const selectedCategoryId = ref(null);
+    const isMobile = ref(window.innerWidth <= 768);
 
     const fetchCategories = async () => {
       try {
@@ -79,6 +80,9 @@ export default {
 
     onMounted(() => {
       fetchCategories();
+      window.addEventListener('resize', () => {
+        isMobile.value = window.innerWidth <= 768;
+      });
     });
 
     return {
@@ -89,6 +93,7 @@ export default {
       closeEditModal,
       fetchCategories,
       deleteCategory,
+      isMobile,
     };
   },
 };
@@ -98,6 +103,11 @@ export default {
 .wrapper {
   padding: 1rem;
   margin-left: 250px; /* Adjust for sidebar width */
+}
+
+.wrapper-mobile {
+  margin-left: 0;
+  padding-top: 4rem; /* Add padding for mobile view to avoid overlap */
 }
 
 .header-container {
