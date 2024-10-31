@@ -11,6 +11,7 @@ import LoginPage from '../components/pages/LoginPage.vue';
 import AdminDashboard from '../components/pages/admin/AdminDashboard.vue';
 import AllTransactions from '../components/pages/admin/AllTransactions.vue';
 import AllClothing from '../components/pages/admin/AllClothing.vue';
+import AllUsers from '../components/pages/admin/AllUsers.vue';
 
 const routes = [
   {
@@ -52,6 +53,12 @@ const routes = [
     path: '/admin/all-transactions',
     component: AllTransactions,
     name: 'AllTransactions',
+    meta: { requiresRole: ['ADMIN'] },
+  },
+  {
+    path: '/admin/all-users',
+    component: AllUsers,
+    name: 'AllUsers',
     meta: { requiresRole: ['ADMIN'] },
   },
   {
