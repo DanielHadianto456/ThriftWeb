@@ -73,33 +73,48 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 2. **Create Environment File**: <br>
    Rename the .env.example file to .env
    
-4. **Generate Application Key**: <br>
+3. **Generate Application Key**: <br>
    Generate a new application key for your Laravel application:
    ```bash
    php artisan key:generate
    
-5. **Generate JWT Secret:** <br>
+4. **Generate JWT Secret:** <br>
    Run the following command to generate a JWT secret for your application:
    ```bash
    php artisan jwt:secret
    
-6. **Configure Database:** <br>
+5. **Configure Database:** <br>
    Open the .env file and set your database credentials accordingly.
    
-8. **Run Migrations:** <br>
+6. **Run Migrations:** <br>
    Execute the migrations to create the necessary database tables:
    ```bash
    php artisan migrate
    
-9. **Create Image Directories:** <br>
+7. **Create Image Directories:** <br>
    Make the following folder structure for storing images:
    ```bash
    mkdir storage\app\public\images\clothing && mkdir storage\app\public\images\profile
    
-10. **Create Storage Link:** <br>
+8. **Create Storage Link:** <br>
    Run this command to create a symbolic link from public/storage to storage/app/public:
    ```bash
    php artisan storage:link
+
+9. **Start the Development Server:**
+    Open two terminals and run the following commands:
+   <ul>
+       <li>
+           In the first terminal, start the Laravel development server:
+           ```bash
+           php artisan serve
+       </li>
+       <li>
+           In the second terminal, start the front-end development server:
+           ```bash
+           npm run dev
+       </li>
+   </ul>
    
 
 
