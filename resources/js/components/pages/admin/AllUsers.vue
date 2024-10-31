@@ -4,6 +4,7 @@
     <div class="header-container">
       <div class="title-container">
         <h1>All Users</h1>
+        <router-link to="/admin/register" class="add-button">Register Admin</router-link>
       </div>
     </div>
     <div class="table-container">
@@ -94,6 +95,20 @@ export default {
 
 .title-container h1 {
   margin: 0;
+}
+
+.add-button {
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.add-button:hover {
+  background-color: #0056b3;
 }
 
 .table-container {

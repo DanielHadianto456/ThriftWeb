@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
 
-    // In your Register function in AuthController
+    // Register function
     public function Register(Request $request)
     {
 
@@ -61,6 +61,63 @@ class AuthController extends Controller
             'user_alamat' => $request->get('user_alamat'),
             'user_profil_url' => $imagePath,
             'user_level' => 'PENGGUNA',
+        ]);
+
+        if ($save) {
+
+            return response()->json(['status' => true, 'message' => 'User successfully registered'], 200);
+        
+        }
+
+        return response()->json(['status' => false, 'message' => 'Failed to register user'], 500);
+    
+    }
+
+    // Register Admin function
+    public function RegisterAdmin(Request $request)
+    {
+
+        // Check if username already exists
+        if (userModel::where('user_username', $request->user_username)->exists()) {
+         
+            return response()->json(['status' => false, 'message' => 'Username already taken'], 422);
+        
+        }
+
+        // Other validation rules
+        $validator = Validator::make($request->all(), [
+            'user_username' => 'required|string|max:50',
+            'user_password' => 'required|string|max:255',
+            'user_fullname' => 'required|string|max:100',
+            'user_email' => 'required|string|max:50',
+            'user_nohp' => 'required|string|max:13',
+            'user_alamat' => 'required|string|max:200',
+            'user_profil_url' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            
+            return response()->json($validator->errors()->toJson(), 400);
+        
+        }
+
+        // Handle image upload
+        if ($request->hasFile('user_profil_url')) {
+            $image = $request->file('user_profil_url');
+            $imageName = $image->getClientOriginalName();
+            $imagePath = $image->storeAs('images/profile', $imageName, 'public');
+        }
+
+        // Save user
+        $save = userModel::create([
+            'user_username' => $request->get('user_username'),
+            'user_password' => Hash::make($request->get('user_password')),
+            'user_fullname' => $request->get('user_fullname'),
+            'user_email' => $request->get('user_email'),
+            'user_nohp' => $request->get('user_nohp'),
+            'user_alamat' => $request->get('user_alamat'),
+            'user_profil_url' => $imagePath,
+            'user_level' => 'ADMIN',
         ]);
 
         if ($save) {

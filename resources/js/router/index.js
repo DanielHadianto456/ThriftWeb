@@ -16,6 +16,7 @@ import AllUsers from '../components/pages/admin/AllUsers.vue';
 import UserProfileSettings from '../components/pages/UserProfileSettings.vue';
 import PasswordResetPage from '../components/pages/PasswordResetPage.vue';
 import AccountSettingsPage from '../components/pages/AccountSettingsPage.vue';
+import RegisterAdminPage from '../components/pages/admin/RegisterAdminPage.vue';
 
 const routes = [
   {
@@ -98,6 +99,12 @@ const routes = [
     component: AccountSettingsPage,
     name: 'AccountSettingsPage',
     meta: { requiresRole: ['PENGGUNA', 'ADMIN'] },
+  },
+  {
+    path: '/admin/register',
+    component: RegisterAdminPage,
+    name: 'RegisterAdminPage',
+    meta: { requiresRole: ['ADMIN'] },
   },
   {
     path: '/:pathMatch(.*)*',
