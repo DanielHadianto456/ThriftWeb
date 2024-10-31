@@ -100,22 +100,6 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
    Run this command to create a symbolic link from public/storage to storage/app/public:
    ```bash
    php artisan storage:link
-
-11. **Start the Development Server**
-    Open two terminals and run the following commands:
-   <ul>
-       <li>
-           In the first terminal, start the Laravel development server:
-           ```bash
-           php artisan serve
-       </li>
-       <li>
-           In the second terminal, start the front-end development server:
-           ```bash
-           npm run dev
-       </li>
-   </ul>
-11. By following these steps, you should have the project set up and running locally.
    
 
 
