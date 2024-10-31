@@ -69,3 +69,6 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
    Run the following commands to install the necessary PHP and JavaScript packages:
    ```bash
    composer install && npm install
+2. **Create Environment File:**
+   Rename the .env.example file to .env:
+
