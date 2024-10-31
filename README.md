@@ -70,7 +70,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
    ```bash
    composer install && npm install
    
-2. **Create Environment File**:
+2. **Create Environment File**: <br>
    Rename the .env.example file to .env
    
 4. **Generate Application Key**:
