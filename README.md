@@ -1,3 +1,66 @@
+## Project Installation Procedure
+
+1. **Install Dependencies**:
+   
+   Run the following commands to install the necessary PHP and JavaScript packages:
+   ```bash
+   composer install && npm install
+   
+2. **Create Environment File**: 
+
+   Rename the .env.example file to .env
+   
+3. **Generate Application Key**: 
+
+   Generate a new application key for your Laravel application:
+   ```bash
+   php artisan key:generate
+   
+4. **Generate JWT Secret:** 
+
+   Run the following command to generate a JWT secret for your application:
+   ```bash
+   php artisan jwt:secret
+   
+5. **Configure Database:** 
+
+   Open the .env file and set your database credentials accordingly.
+   
+6. **Run Migrations:**
+
+   Execute the migrations to create the necessary database tables:
+   ```bash
+   php artisan migrate
+   
+7. **Create Image Directories:** 
+
+   Make the following folder structure for storing images:
+   ```bash
+   mkdir storage\app\public\images\clothing && mkdir storage\app\public\images\profile
+   
+8. **Create Storage Link:** 
+
+   Run this command to create a symbolic link from public/storage to storage/app/public:
+   ```bash
+   php artisan storage:link
+
+9. **Start the Development Server:**
+
+   Open two terminals and run the following commands:
+
+   - **In the first terminal, start the Laravel development server:**
+
+     ```bash
+     php artisan serve
+     ```
+
+   - **In the second terminal, start the front-end development server:**
+
+     ```bash
+     npm run dev
+     ```
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
@@ -64,70 +127,3 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-
-## Project Installation Procedure
-
-1. **Install Dependencies**:
-   
-   Run the following commands to install the necessary PHP and JavaScript packages:
-   ```bash
-   composer install && npm install
-   
-2. **Create Environment File**: 
-
-   Rename the .env.example file to .env
-   
-3. **Generate Application Key**: 
-
-   Generate a new application key for your Laravel application:
-   ```bash
-   php artisan key:generate
-   
-4. **Generate JWT Secret:** 
-
-   Run the following command to generate a JWT secret for your application:
-   ```bash
-   php artisan jwt:secret
-   
-5. **Configure Database:** 
-
-   Open the .env file and set your database credentials accordingly.
-   
-6. **Run Migrations:**
-
-   Execute the migrations to create the necessary database tables:
-   ```bash
-   php artisan migrate
-   
-7. **Create Image Directories:** 
-
-   Make the following folder structure for storing images:
-   ```bash
-   mkdir storage\app\public\images\clothing && mkdir storage\app\public\images\profile
-   
-8. **Create Storage Link:** 
-
-   Run this command to create a symbolic link from public/storage to storage/app/public:
-   ```bash
-   php artisan storage:link
-
-9. **Start the Development Server:**
-
-   Open two terminals and run the following commands:
-
-   - **In the first terminal, start the Laravel development server:**
-
-     ```bash
-     php artisan serve
-     ```
-
-   - **In the second terminal, start the front-end development server:**
-
-     ```bash
-     npm run dev
-     ```
-
-
-   
-
-
