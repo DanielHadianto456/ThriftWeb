@@ -13,6 +13,9 @@ import AdminDashboard from '../components/pages/admin/AdminDashboard.vue';
 import AllTransactions from '../components/pages/admin/AllTransactions.vue';
 import AllClothing from '../components/pages/admin/AllClothing.vue';
 import AllUsers from '../components/pages/admin/AllUsers.vue';
+import UserProfileSettings from '../components/pages/UserProfileSettings.vue';
+import PasswordResetPage from '../components/pages/PasswordResetPage.vue';
+import AccountSettingsPage from '../components/pages/AccountSettingsPage.vue';
 
 const routes = [
   {
@@ -77,6 +80,24 @@ const routes = [
     path: '/register',
     component: RegisterPage,
     name: 'register',
+  },
+  {
+    path: '/settings/update-profile',
+    component: UserProfileSettings,
+    name: 'UserProfileSettings',
+    meta: { requiresRole: ['PENGGUNA', 'ADMIN'] },
+  },
+  {
+    path: '/settings/reset-password',
+    component: PasswordResetPage,
+    name: 'PasswordResetPage',
+    meta: { requiresRole: ['PENGGUNA', 'ADMIN'] },
+  },
+  {
+    path: '/settings',
+    component: AccountSettingsPage,
+    name: 'AccountSettingsPage',
+    meta: { requiresRole: ['PENGGUNA', 'ADMIN'] },
   },
   {
     path: '/:pathMatch(.*)*',

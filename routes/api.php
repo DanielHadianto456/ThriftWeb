@@ -60,10 +60,9 @@ Route::middleware('auth:user_model')->group(function(){
     });
 
     Route::controller(userController::class)->group(function(){
-        //User
-        Route::post('user/update-profile',  'updateProfile');
-        Route::post('user/reset-password', 'resetPassword');
-        Route::get('user/profile',  'getProfile');
+        Route::post('settings/update-profile',  'updateProfile');
+        Route::post('settings/reset-password', 'resetPassword');
+        Route::get('settings/profile',  'getProfile');
         //Admin
         Route::get('admin/users', 'getAll');
     });

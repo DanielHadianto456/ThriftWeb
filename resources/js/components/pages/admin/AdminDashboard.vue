@@ -6,6 +6,10 @@
         <h1>Admin Dashboard</h1>
         <h2>Manage Your Application</h2>
       </div>
+      <div class="user-info">
+        <img :src="profileImageUrl" alt="Profile Image" class="profile-image" />
+        <span>Welcome, {{ fullname }}</span>
+      </div>
     </div>
     <div class="content-container">
       <div class="card">
@@ -31,6 +35,7 @@
 <script>
 import { ref, onMounted } from "vue";
 import { useAdminStore } from "@/stores/adminStore";
+import { useUserStore } from "@/stores/userStore";
 import Sidebar from "../../Sidebar.vue";
 
 export default {
@@ -43,6 +48,8 @@ export default {
     const transactionCount = ref(0);
     const clothingCount = ref(0);
     const categoryCount = ref(0);
+    const fullname = ref("");
+    const profileImageUrl = ref("");
     const isMobile = ref(window.innerWidth <= 768);
 
     const fetchUserCount = async () => {
@@ -85,11 +92,23 @@ export default {
       }
     };
 
+    const fetchUserProfile = async () => {
+      try {
+        const store = useUserStore();
+        const data = await store.getProfile();
+        fullname.value = data.user_fullname;
+        profileImageUrl.value = `/storage/${data.user_profil_url}`;
+      } catch (error) {
+        console.error("Failed to fetch user profile:", error);
+      }
+    };
+
     onMounted(() => {
       fetchUserCount();
       fetchTransactionCount();
       fetchClothingCount();
       fetchCategoryCount();
+      fetchUserProfile();
       window.addEventListener('resize', () => {
         isMobile.value = window.innerWidth <= 768;
       });
@@ -100,6 +119,8 @@ export default {
       transactionCount,
       clothingCount,
       categoryCount,
+      fullname,
+      profileImageUrl,
       isMobile,
     };
   },
@@ -109,12 +130,12 @@ export default {
 <style scoped>
 .wrapper {
   padding: 1rem;
-  margin-left: 250px; /* Set to sidebar width */
+  margin-left: 250px; /* Adjust for sidebar width */
 }
 
 .wrapper-mobile {
-  margin-left: 0;
-  padding-top: 4rem; /* Add padding for mobile view to avoid overlap */
+  margin-left: 0; /* No margin for mobile view */
+  padding-top: 4rem;
 }
 
 .header-container {
@@ -126,6 +147,18 @@ export default {
 
 .title-container h1 {
   margin: 0;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
 }
 
 .content-container {
