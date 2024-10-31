@@ -65,43 +65,44 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
-1. **Install Dependencies**:  
+1. **Install Dependencies**:
+   
    Run the following commands to install the necessary PHP and JavaScript packages:
    ```bash
    composer install && npm install
    
-2. **Create Environment File**: <br>
+3. **Create Environment File**: <br>
    Rename the .env.example file to .env
    
-3. **Generate Application Key**: <br>
+4. **Generate Application Key**: <br>
    Generate a new application key for your Laravel application:
    ```bash
    php artisan key:generate
    
-4. **Generate JWT Secret:** <br>
+5. **Generate JWT Secret:** <br>
    Run the following command to generate a JWT secret for your application:
    ```bash
    php artisan jwt:secret
    
-5. **Configure Database:** <br>
+6. **Configure Database:** <br>
    Open the .env file and set your database credentials accordingly.
    
-6. **Run Migrations:** <br>
+7. **Run Migrations:** <br>
    Execute the migrations to create the necessary database tables:
    ```bash
    php artisan migrate
    
-7. **Create Image Directories:** <br>
+8. **Create Image Directories:** <br>
    Make the following folder structure for storing images:
    ```bash
    mkdir storage\app\public\images\clothing && mkdir storage\app\public\images\profile
    
-8. **Create Storage Link:** <br>
+9. **Create Storage Link:** <br>
    Run this command to create a symbolic link from public/storage to storage/app/public:
    ```bash
    php artisan storage:link
 
-9. **Start the Development Server:**
+10. **Start the Development Server:**
 
    Open two terminals and run the following commands:
 
