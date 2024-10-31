@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class CreateUserTable extends Migration
 {
@@ -19,6 +21,18 @@ class CreateUserTable extends Migration
             $table->string('user_profil_url', 255)->default('url_placeholder_profil');
             $table->enum('user_level', ['ADMIN', 'PENGGUNA']);
         });
+
+        // Insert default admin user
+        DB::table('user')->insert([
+            'user_username' => 'demoadmin1',
+            'user_password' => Hash::make('demoadmin1'),
+            'user_fullname' => 'Admin User',
+            'user_email' => 'demoadmin1@gmail.com',
+            'user_nohp' => '1234567890',
+            'user_alamat' => 'Admin Address',
+            'user_profil_url' => 'admin.jpg',
+            'user_level' => 'ADMIN',
+        ]);
     }
 
     public function down()
