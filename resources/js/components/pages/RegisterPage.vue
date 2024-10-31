@@ -1,44 +1,39 @@
 <template>
   <div class="register-page">
-    <h1>Register</h1>
-    <form @submit.prevent="register">
-      <div>
-        <label for="username">Username:</label>
-        <input type="text" v-model="username" id="username" required />
-      </div>
-      <div>
-        <label for="password">Password:</label>
-        <input type="password" v-model="password" id="password" required />
-      </div>
-      <div>
-        <label for="fullname">Full Name:</label>
-        <input type="text" v-model="fullname" id="fullname" required />
-      </div>
-      <div>
-        <label for="email">Email:</label>
-        <input type="email" v-model="email" id="email" required />
-      </div>
-      <div>
-        <label for="nohp">Phone Number:</label>
-        <input type="text" v-model="nohp" id="nohp" required />
-      </div>
-      <div>
-        <label for="alamat">Address:</label>
-        <input type="text" v-model="alamat" id="alamat" required />
-      </div>
-      <div>
-        <label for="profil_url">Profile Image:</label>
-        <input type="file" @change="handleFileUpload" id="profil_url" required />
-      </div>
-      <!-- <div>
-        <label for="level">Role:</label>
-        <select v-model="level" id="level" required>
-          <option value="ADMIN">Admin</option>
-          <option value="PENGGUNA">User</option>
-        </select>
-      </div> -->
-      <button type="submit">Register</button>
-    </form>
+    <div class="register-box">
+      <h1>Register</h1>
+      <form @submit.prevent="register">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" v-model="username" id="username" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" v-model="password" id="password" required />
+        </div>
+        <div class="form-group">
+          <label for="fullname">Full Name:</label>
+          <input type="text" v-model="fullname" id="fullname" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" v-model="email" id="email" required />
+        </div>
+        <div class="form-group">
+          <label for="nohp">Phone Number:</label>
+          <input type="text" v-model="nohp" id="nohp" required />
+        </div>
+        <div class="form-group">
+          <label for="alamat">Address:</label>
+          <input type="text" v-model="alamat" id="alamat" required />
+        </div>
+        <div class="form-group">
+          <label for="profil_url">Profile Image:</label>
+          <input type="file" @change="handleFileUpload" id="profil_url" required />
+        </div>
+        <button type="submit">Register</button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -56,7 +51,6 @@ export default {
     const nohp = ref("");
     const alamat = ref("");
     const profil_url = ref(null);
-    // const level = ref("PENGGUNA");
 
     const handleFileUpload = (event) => {
       profil_url.value = event.target.files[0];
@@ -72,7 +66,6 @@ export default {
       formData.append("user_nohp", nohp.value);
       formData.append("user_alamat", alamat.value);
       formData.append("user_profil_url", profil_url.value);
-    //   formData.append("user_level", level.value);
 
       try {
         await store.authenticate("register", formData);
@@ -89,7 +82,6 @@ export default {
       nohp,
       alamat,
       profil_url,
-    //   level,
       handleFileUpload,
       register,
     };
@@ -99,41 +91,58 @@ export default {
 
 <style scoped>
 .register-page {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+  padding: 3rem; /* Add padding to create space around the card */
 }
-.register-page h1 {
+
+.register-box {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
   text-align: center;
 }
-.register-page form {
-  display: flex;
-  flex-direction: column;
+
+.register-box h1 {
+  margin-bottom: 1.5rem;
 }
-.register-page form div {
+
+.form-group {
   margin-bottom: 1rem;
+  text-align: left;
 }
-.register-page form label {
+
+.form-group label {
+  display: block;
   margin-bottom: 0.5rem;
   font-weight: bold;
 }
-.register-page form input,
-.register-page form select {
+
+.form-group input {
+  width: 100%;
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-.register-page form button {
-  padding: 0.5rem;
+
+button {
+  width: 100%;
+  padding: 0.75rem;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 1rem;
 }
-.register-page form button:hover {
+
+button:hover {
   background-color: #0056b3;
 }
 </style>
