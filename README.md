@@ -60,6 +60,12 @@
      npm run dev
      ```
 
+10. **Admin Account**  
+    When the migrations are run, an admin account is automatically created. You can use the following credentials to log in:
+
+    - **Username**: `demoadmin1`
+    - **Password**: `demoadmin1`
+
 ##
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
