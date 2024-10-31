@@ -1,39 +1,55 @@
 <template>
-  <Sidebar />
-  <div class="password-reset-page">
-    <h1>Reset Password</h1>
-    <form @submit.prevent="resetPassword">
-      <div>
-        <label for="current_password">Current Password:</label>
-        <input type="password" v-model="currentPassword" id="current_password" required />
-      </div>
-      <div>
-        <label for="new_password">New Password:</label>
-        <input type="password" v-model="newPassword" id="new_password" minlength="8" required />
-      </div>
-      <div>
-        <label for="new_password_confirmation">Confirm New Password:</label>
-        <input type="password" v-model="newPasswordConfirmation" id="new_password_confirmation" minlength="8" required />
-      </div>
-      <button type="submit">Reset Password</button>
-    </form>
+  <div>
+    <Sidebar v-if="role === 'ADMIN'" />
+    <Header v-else />
+    <div class="password-reset-page">
+      <h1>Reset Password</h1>
+      <form @submit.prevent="resetPassword">
+        <div>
+          <label for="current_password">Current Password:</label>
+          <input type="password" v-model="currentPassword" id="current_password" required />
+        </div>
+        <div>
+          <label for="new_password">New Password:</label>
+          <input type="password" v-model="newPassword" id="new_password" minlength="8" required />
+        </div>
+        <div>
+          <label for="new_password_confirmation">Confirm New Password:</label>
+          <input type="password" v-model="newPasswordConfirmation" id="new_password_confirmation" minlength="8" required />
+        </div>
+        <button type="submit">Reset Password</button>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useUserStore } from "@/stores/userStore";
 import Sidebar from "../Sidebar.vue";
+import Header from "../Header.vue";
 
 export default {
   name: "PasswordResetPage",
   components: {
     Sidebar,
+    Header,
   },
   setup() {
     const currentPassword = ref("");
     const newPassword = ref("");
     const newPasswordConfirmation = ref("");
+    const role = ref(null);
+
+    const fetchUserRole = async () => {
+      try {
+        const store = useUserStore();
+        const data = await store.getProfile();
+        role.value = data.user_level;
+      } catch (error) {
+        console.error("Failed to fetch user role:", error);
+      }
+    };
 
     const resetPassword = async () => {
       const store = useUserStore();
@@ -51,11 +67,16 @@ export default {
       }
     };
 
+    onMounted(() => {
+      fetchUserRole();
+    });
+
     return {
       currentPassword,
       newPassword,
       newPasswordConfirmation,
       resetPassword,
+      role,
     };
   },
 };
